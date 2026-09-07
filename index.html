@@ -104,9 +104,6 @@
   .ex{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid rgba(14,58,82,.55);}
   .ex:first-of-type{border-top:none;}
   .exname{flex:1;min-width:0;font-size:15px;line-height:1.3;font-weight:500;letter-spacing:.02em;}
-  .s3badge{color:var(--orange);font-family:var(--mono);font-size:9px;
-    letter-spacing:.12em;margin-left:6px;border:1px solid rgba(255,158,61,.4);padding:1px 5px;
-    border-radius:2px;white-space:nowrap;text-shadow:0 0 8px var(--orange-glow);}
   .hint{display:block;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:2px;letter-spacing:.04em;}
   .delta{display:block;font-family:var(--mono);font-size:10.5px;color:var(--cyan);margin-top:3px;
     text-shadow:0 0 8px var(--cyan-glow);letter-spacing:.04em;}
@@ -133,9 +130,6 @@
   .super .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
     color:var(--cyan);text-transform:uppercase;padding:8px 0 2px;display:block;
     text-shadow:0 0 8px var(--cyan-glow);}
-  .optblock{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);opacity:.65;}
-  .optblock .lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
-    color:var(--faint);text-transform:uppercase;display:block;margin-bottom:2px;}
   .cardio{color:var(--muted);font-size:13px;margin-top:11px;padding-top:10px;
     border-top:1px dashed var(--line);}
   .note{background:var(--surface);border-radius:var(--radius);padding:14px 15px;font-size:13.5px;
@@ -159,6 +153,39 @@
     transition:.28s;z-index:99;max-width:90vw;text-align:center;
     box-shadow:0 0 18px var(--cyan-glow);}
   .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+  .exbtn{flex:0 0 auto;width:26px;height:26px;border:1px solid var(--line);background:transparent;
+    color:var(--cyan-dim);border-radius:2px;font-size:10px;cursor:pointer;
+    display:grid;place-items:center;transition:.18s;align-self:center;}
+  .exbtn:active{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 8px var(--cyan-glow);}
+  .modal{position:fixed;inset:0;background:rgba(2,9,17,.88);display:grid;place-items:center;
+    z-index:100;padding:20px;backdrop-filter:blur(3px);}
+  .modal[hidden]{display:none;}
+  .mbox{background:var(--bg-2);border:1px solid var(--cyan);border-radius:4px;max-width:420px;
+    width:100%;padding:18px;position:relative;
+    box-shadow:0 0 30px var(--cyan-glow),inset 0 0 40px rgba(95,227,255,.04);}
+  .mclose{position:absolute;top:10px;right:10px;width:32px;height:32px;background:none;
+    border:1px solid var(--line);color:var(--muted);border-radius:2px;cursor:pointer;font-size:14px;}
+  .mclose:active{border-color:var(--cyan);color:var(--cyan);}
+  .mtitle{font-family:var(--disp);font-size:14px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cyan);text-shadow:0 0 10px var(--cyan-glow);padding-right:40px;}
+  .mmus{font-family:var(--mono);font-size:10.5px;color:var(--orange);letter-spacing:.14em;
+    text-transform:uppercase;margin:4px 0 10px;text-shadow:0 0 8px var(--orange-glow);}
+  .msvg svg{width:100%;height:auto;display:block;}
+  .msvg .cyb{stroke:#0D3B58;stroke-width:12;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+  .msvg .cy{stroke:var(--cyan);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    filter:drop-shadow(0 0 4px rgba(95,227,255,.5));}
+  .msvg .cyc{stroke:var(--cyan);stroke-width:3;fill:#0D3B58;
+    filter:drop-shadow(0 0 4px rgba(95,227,255,.5));}
+  .msvg .or{stroke:var(--orange);stroke-width:3;fill:none;stroke-linecap:round;
+    filter:drop-shadow(0 0 4px rgba(255,158,61,.45));}
+  .msvg .orc{stroke:var(--orange);stroke-width:3;fill:#2E1D08;
+    filter:drop-shadow(0 0 4px rgba(255,158,61,.45));}
+  .msvg .fl{stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 6;}
+  .mdisc{font-family:var(--mono);font-size:9.5px;color:var(--faint);text-align:right;margin-top:2px;letter-spacing:.06em;}
+  .mcues{list-style:none;margin-top:10px;}
+  .mcues li{font-size:14px;color:var(--muted);padding:7px 0 7px 16px;position:relative;
+    border-top:1px solid rgba(14,58,82,.5);}
+  .mcues li::before{content:'▸';position:absolute;left:0;color:var(--cyan);}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
@@ -168,16 +195,16 @@
   <div class="sub">El músculo ya está. Solo hay que bajar la capa.</div>
 
   <div class="banner" id="phaseBanner">
-    <b>Fase de vuelta · semanas 1-2</b>
-    Arranca con el 80-85% de tus cargas guardadas y deja 2-3 reps en la recámara. Los tendones vuelven más lento que el músculo. Hacia la semana 3-4, de vuelta a tus números. Si la báscula sube 1-2 kg estas semanas, es glucógeno y agua rellenando el músculo — buena señal, no grasa.
+    <b>Programa nuevo · primeras 2 semanas</b>
+    Banca, sentadilla y militar con barra son movimientos nuevos para ti: empieza ligero y prioriza la técnica — dos semanas cómodas antes de apretar. Donde repites ejercicio, tus cargas guardadas siguen ahí como referencia.
   </div>
 
   <div class="section-h">Running · 2 rodajes suaves</div>
   <div id="runList"></div>
   <div class="kmtotal" id="kmTotal"></div>
 
-  <div class="section-h">Pesas · lun / mar / jue / vie</div>
-  <p class="lead">Escribe el peso de cada ejercicio y se guarda. Tus cargas de antes de vacaciones siguen aquí como referencia.</p>
+  <div class="section-h">Pesas · torso / pierna</div>
+  <p class="lead">Escribe el peso de cada ejercicio y se guarda. Los descansos van junto a las series.</p>
   <div id="routine"></div>
 
   <div class="datos">
@@ -187,55 +214,65 @@
       <button class="btn" id="importBtn">Restaurar copia</button>
     </div>
     <div class="btnrow">
-      <button class="btn" id="phaseBtn">Fin de readaptación: ocultar aviso</button>
+      <button class="btn" id="phaseBtn">Ocultar aviso de programa nuevo</button>
     </div>
     <div class="storeinfo" id="storeInfo"></div>
+  </div>
+
+  <div class="modal" id="exModal" hidden>
+    <div class="mbox">
+      <button class="mclose" id="mClose" aria-label="Cerrar">✕</button>
+      <div class="mtitle" id="mTitle"></div>
+      <div class="mmus" id="mMus"></div>
+      <div class="msvg" id="mSvg"></div>
+      <div class="mdisc">esquema orientativo</div>
+      <ul class="mcues" id="mCues"></ul>
+    </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
 <script>
 const RUNS=[
- {id:'run1',t:'Rodaje 1 — miércoles',d:'Ritmo de hablar frases enteras. Si estás muerto, camínalo: cuenta igual'},
- {id:'run2',t:'Rodaje 2 — finde',d:'Empieza por 4-5 km, sube máx. 10% por semana'},
+ {id:'run1',t:'Rodaje 1 — miércoles tarde',d:'25-30 min suaves, ritmo de poder hablar · +5 min cada 2 semanas'},
+ {id:'run2',t:'Rodaje 2 — sábado o domingo tarde',d:'30 min suaves · una de las dos puede ser en cuesta o tierra, sin forzar'},
 ];
 const ROUTINE=[
- {day:'Lunes',tag:'PECHO · TRÍCEPS',ex:[
-  {id:'l1',n:'Press inclinado mancuernas',r:'3 × 8-10'},
-  {id:'l2',n:'Press plano máquina',r:'3 × 10-12'},
-  {id:'l3',n:'Aperturas en polea',r:'3 × 12-15'},
+ {day:'Lunes',tag:'TORSO A',ex:[
+  {id:'tA1',n:'Press banca con barra',r:'4×5 · 2-3 min'},
+  {id:'tA2',n:'Remo con barra',r:'4×6 · 2-3 min'},
+  {id:'v1',n:'Press militar con barra',r:'3×6 · 2 min'},
+  {id:'j1d',n:'Dominadas (o asistidas)',r:'3×6-8 · 2 min',inv:true,hint:'si asistidas: kg de ayuda · menos es mejor'},
+  {id:'tA5',n:'Face pull',r:'3×15 · 60 s'},
+  {id:'j4',n:'Curl con barra',r:'2×10 · 60 s'},
+ ],cardio:'Finisher · 6 min remo ergómetro: 30" fuerte / 30" suave'},
+ {day:'Martes',tag:'PIERNA A',ex:[
+  {id:'s1',n:'Sentadilla con barra',r:'4×5 · 3 min'},
+  {id:'m2',n:'Peso muerto rumano',r:'3×8 · 2 min'},
+  {id:'m5',n:'Zancadas con mancuernas',r:'3×10/pierna · 90 s'},
+  {id:'pA4',n:'Gemelo de pie',r:'3×12 · 60 s'},
+  {id:'pA5',n:'Plancha con lastre',r:'3×40" · 60 s',hint:'kg = disco encima'},
+  {id:'pA6',n:'Farmer walks (finisher)',r:'5 min · 30-40 m',hint:'kg por mancuerna'},
+ ],cardio:'Si vas justo de los 80 min, el finisher es lo primero que cae'},
+ {day:'Jueves',tag:'TORSO B',ex:[
+  {id:'l1',n:'Press inclinado con mancuernas',r:'3×10 · 90 s'},
+  {id:'j1',n:'Jalón al pecho',r:'3×10 · 90 s'},
+  {id:'tB3',n:'Fondos en paralelas',r:'3×8-12 · 90 s'},
+  {id:'j2',n:'Remo en polea baja',r:'3×12 · 60-90 s'},
+  {id:'v2',n:'Elevaciones laterales',r:'3×15 · 60 s'},
  ],super:[
-  {id:'l4',n:'Tríceps cuerda',r:'3 × 12'},
-  {id:'l5',n:'Extensión sobre la cabeza',r:'3 × 12'},
- ],cardio:'15-20 min caminata inclinada · o cámbialo por pasos fuera'},
- {day:'Martes',tag:'PIERNA · CORE',note:'Cuatro ejercicios. Ve directo a ellos: son los que valen.',ex:[
-  {id:'m1',n:'Sentadilla o prensa',r:'3 × 10-12'},
-  {id:'m2',n:'Peso muerto rumano',r:'3 × 10'},
-  {id:'m3',n:'Hip thrust o curl femoral',r:'3 × 12'},
-  {id:'m4',n:'Rueda abdominal',r:'3 × 8-12'},
- ],opt:[
-  {id:'m5',n:'Zancadas',r:'3 × 12 / pierna'},
-  {id:'m6',n:'Plancha lateral',r:'2 × 30-45 s'},
- ],cardio:'Si vas justo, salta el cardio del martes y compénsalo con pasos'},
- {day:'Jueves',tag:'ESPALDA · BÍCEPS',ex:[
-  {id:'j1d',n:'Dominadas asistidas',r:'3 × 6-10',s3:true,inv:true,hint:'kg de ayuda · menos es mejor'},
-  {id:'j2',n:'Remo sentado polea',r:'3 × 10'},
-  {id:'j3',n:'Remo mancuerna',r:'3 × 10'},
- ],super:[
-  {id:'j4',n:'Curl con barra',r:'3 × 10'},
-  {id:'j5',n:'Curl martillo',r:'3 × 12'},
- ],cardio:'15-20 min caminata inclinada'},
- {day:'Viernes',tag:'HOMBRO · PIERNA LIGERA · CORE',superLbl:'Pierna ligera · carga moderada, no compromete el rodaje del finde',ex:[
-  {id:'v1',n:'Press militar',r:'3 × 8-10'},
-  {id:'v2',n:'Elevaciones laterales',r:'4 × 15'},
-  {id:'v3',n:'Pájaros',r:'3 × 15'},
- ],super:[
-  {id:'v4g',n:'Sentadilla goblet',r:'3 × 12',s3:true},
-  {id:'v5f',n:'Curl femoral',r:'3 × 12',s3:true},
- ],extra:[
-  {id:'v6',n:'Crunch en polea',r:'3 × 15'},
-  {id:'v7',n:'Plancha',r:'3 × 45-60 s'},
- ],cardio:'20 min caminata inclinada'},
+  {id:'v4',n:'Curl inclinado',r:'3×12'},
+  {id:'l4',n:'Extensión tríceps polea',r:'3×12'},
+ ],superLbl:'Superserie · 0 s entre los dos · 60 s tras la pareja',
+ cardio:'Finisher · 8 min circuito kettlebell: swing / mountain climbers / burpees (40" trabajo / 20" descanso)'},
+ {day:'Viernes',tag:'PIERNA B',ex:[
+  {id:'m1',n:'Prensa',r:'3×12 · 90 s'},
+  {id:'m3',n:'Hip thrust',r:'3×10 · 2 min'},
+  {id:'v5f',n:'Curl femoral tumbado',r:'3×12 · 60-90 s'},
+  {id:'pB4',n:'Sentadilla búlgara',r:'3×10/pierna · 90 s'},
+  {id:'pB5',n:'Gemelo sentado',r:'3×15 · 60 s'},
+  {id:'m4',n:'Rueda abdominal',r:'3×10 · 60 s'},
+ ],cardio:'Finisher · 8 min bici estática: 20" fuerte / 40" suave'},
 ];
 
 const KEY='destapar';
@@ -331,12 +368,13 @@ function exRow(e){
     const d=Number(cur)-Number(rec.prev);
     const good=e.inv?d<0:d>0;
     if(!good&&!e.inv&&!state.hidePhase){
-      extraHtml='<span class="ret">↩ readaptación · objetivo: '+fmt(rec.prev)+' kg</span>';
+      extraHtml='<span class="ret">↩ referencia anterior: '+fmt(rec.prev)+' kg</span>';
     }else{
       extraHtml='<span class="delta'+(good?'':' down')+'">'+(d>0?'▲ +':'▼ ')+fmt(Math.abs(d))+' kg desde '+fmt(rec.prev)+'</span>';
     }
   }
-  row.innerHTML='<span class="exname">'+e.n+(e.s3?'<span class="s3badge">SEM 3+</span>':'')+(e.hint?'<span class="hint">'+e.hint+'</span>':'')+extraHtml+'</span>'+
+  row.innerHTML='<span class="exname">'+e.n+(e.hint?'<span class="hint">'+e.hint+'</span>':'')+extraHtml+'</span>'+
+    (POSES[e.id]?'<button class="exbtn" aria-label="Ver ejemplo de '+e.n+'">▶</button>':'')+
     '<span class="exright"><span class="reps">'+e.r+'</span>'+
     '<span class="wwrap'+(cur!==''?' filled':'')+'"><input class="w" type="number" inputmode="decimal" step="0.5" min="0" '+
     'placeholder="—" value="'+cur+'" aria-label="Peso en kg de '+e.n+'"><span class="unit">kg</span></span></span>';
@@ -352,6 +390,8 @@ function exRow(e){
     }
     save();renderRoutine();
   });
+  const eb=row.querySelector('.exbtn');
+  if(eb)eb.addEventListener('click',ev=>{ev.stopPropagation();openModal(e);});
   return row;
 }
 function block(list,cls,label){
@@ -370,21 +410,204 @@ function renderRoutine(){
     if(d.note){const p=document.createElement('div');p.className='daynote';p.textContent=d.note;card.appendChild(p);}
     d.ex.forEach(e=>card.appendChild(exRow(e)));
     if(d.super)card.appendChild(block(d.super,'super',d.superLbl||'Superserie · sin descanso entre las dos'));
-    if(d.extra)d.extra.forEach(e=>card.appendChild(exRow(e)));
-    if(d.opt)card.appendChild(block(d.opt,'optblock','Solo si te sobra tiempo'));
-    const cd=document.createElement('div');cd.className='cardio';cd.textContent='🚶 '+d.cardio;
+    const cd=document.createElement('div');cd.className='cardio';cd.textContent='⚡ '+d.cardio;
     card.appendChild(cd);c.appendChild(card);
   });
   const n0=document.createElement('div');n0.className='note';
-  n0.innerHTML='<b>Cambios "SEM 3+"</b> — actívalos cuando acabes la readaptación. Hasta entonces: jalón al pecho en vez de dominadas, y curl inclinado + tríceps cuerda en vez de la pierna ligera del viernes. Las dominadas se apuntan en kg de ayuda de la máquina: cada kilo menos de ayuda (y cada kilo menos tuyo) es progreso.';
+  n0.innerHTML='<b>Finishers.</b> Son el remate de acondicionamiento de cada sesión. Si los 80 min no dan, el finisher es lo primero que cae — nunca un ejercicio de fuerza.';
   c.appendChild(n0);
   const n1=document.createElement('div');n1.className='note';
-  n1.innerHTML='<b>Running.</b> Miércoles y finde, ritmo de conversación, 4-5 km al empezar, subida máx. 10% semanal. Nunca el día antes de pierna. La zona tranquila quema grasa igual y protege rodillas y tendones.';
+  n1.innerHTML='<b>Running.</b> Siempre a ritmo de conversación. Las cuestas o la tierra, sin forzar — es volumen suave, no series. Progresión: +5 min cada 2 semanas.';
   c.appendChild(n1);
   const n2=document.createElement('div');n2.className='note';
   n2.innerHTML='<b>El marco que sostiene todo esto:</b> déficit vía comer fuera controlado y porciones de hidratos con cabeza, 8.000+ pasos diarios, y en la cama a las 22:00. La rutina protege el músculo; el marco quita la grasa.';
   c.appendChild(n2);
 }
+
+const POSES={
+ tA1:{m:'Pecho · hombro · tríceps',q:['Escápulas atrás y pecho arriba','Barra a la parte baja del pecho, pies firmes en el suelo'],
+  ol:[[40,96,150,96],[55,96,55,124],[135,96,135,124]],oc:[[78,44,8]],c:[[52,84,7]],
+  l:[[61,88,118,91],[118,91,132,108,134,124],[78,89,78,54]]},
+ tA2:{m:'Espalda · dorsal',q:['Torso a ~45°, espalda neutra','Lleva la barra al ombligo, sin tirón'],
+  c:[[128,61,7]],l:[[80,84,121,66],[80,84,78,102,82,124],[80,84,90,104,92,124],[112,70,108,98]],oc:[[108,103,9]]},
+ v1:{m:'Hombro',q:['Glúteo y core apretados: no arquees la lumbar','La barra acaba sobre la cabeza, no delante'],
+  c:[[100,37,7]],l:[[100,47,100,88],[100,88,92,124],[100,88,108,124],[100,52,84,30],[100,52,116,30]],
+  ol:[[70,28,130,28]],oc:[[70,28,5],[130,28,5]]},
+ j1d:{m:'Dorsal · brazos',q:['Pecho hacia la barra, escápulas abajo','Baja controlado hasta brazos casi rectos'],
+  ol:[[60,25,140,25]],c:[[100,44,7]],l:[[85,26,92,54],[115,26,108,54],[100,52,100,92],[100,92,96,106,104,116]]},
+ tA5:{m:'Hombro posterior',q:['Tira de la cuerda hacia la cara','Acaba con las manos junto a las orejas'],
+  ol:[[158,20,158,124],[156,40,112,50]],c:[[84,42,7]],
+  l:[[84,52,84,92],[84,92,76,124],[84,92,92,124],[84,56,110,50],[84,60,110,52]]},
+ j4:{m:'Bíceps',q:['Codos pegados al cuerpo','Sin balanceo: si te meces, baja peso'],
+  c:[[100,37,7]],l:[[100,47,100,90],[100,90,92,124],[100,90,108,124],[100,55,106,80,118,62]],oc:[[121,60,8]]},
+ s1:{m:'Pierna completa',q:['Rodillas siguen la punta del pie','Baja a muslo paralelo con el core firme'],
+  c:[[80,48,7]],oc:[[94,58,8]],
+  l:[[87,58,101,87],[101,87,82,93,84,124],[101,87,88,95,90,124],[88,60,95,57]]},
+ m2:{m:'Femoral · glúteo',q:['Cadera atrás, piernas casi rectas','Barra rozando las piernas, espalda neutra'],
+  c:[[121,57,7]],l:[[82,80,115,62],[82,80,80,100,82,124],[82,80,88,102,90,124],[108,66,104,94]],oc:[[104,98,9]]},
+ m5:{m:'Pierna · glúteo',q:['Paso largo y torso vertical','La rodilla trasera casi toca el suelo'],
+  c:[[95,39,7]],l:[[95,49,95,86],[95,86,116,92,118,124],[95,86,74,102,60,118],[95,54,86,90],[95,54,104,90]],
+  oc:[[85,94,5],[105,94,5]]},
+ pA4:{m:'Gemelo',q:['Sube a la punta y aguanta 1 s arriba','Baja el talón por debajo del escalón'],
+  ol:[[86,118,120,118]],c:[[100,30,7]],l:[[100,40,100,84],[100,84,95,110,99,118],[100,84,105,110,109,118]]},
+ pA5:{m:'Core',q:['Cuerpo en línea recta, glúteo apretado','El disco va sobre la zona lumbar-alta'],
+  c:[[54,95,7]],l:[[62,99,128,104],[64,101,56,122],[128,104,150,118]],oc:[[96,93,8]]},
+ pA6:{m:'Agarre · core',q:['Camina erguido, hombros atrás','Pasos cortos y firmes'],
+  c:[[100,33,7]],l:[[100,43,100,88],[100,88,86,104,84,124],[100,88,114,104,120,124],[100,50,82,90],[100,50,118,90]],
+  oc:[[82,95,6],[118,95,6]]},
+ l1:{m:'Pecho superior',q:['Banco a 30-45°','Baja las mancuernas al ancho del pecho'],
+  ol:[[56,112,118,66],[70,112,70,124],[104,86,104,124]],c:[[121,57,7]],
+  l:[[115,66,80,95],[80,95,92,108,94,124],[110,70,118,40]],oc:[[119,34,7]]},
+ j1:{m:'Dorsal',q:['Barra a la parte alta del pecho','Baja los codos, no tires con los brazos'],
+  ol:[[100,14,100,26],[70,26,130,26]],c:[[100,48,7]],
+  l:[[100,58,100,92],[100,92,124,94,124,124],[100,60,82,28],[100,60,118,28]]},
+ tB3:{m:'Pecho · tríceps',q:['Inclínate ligeramente adelante','Baja hasta 90° de codo y sube controlado'],
+  ol:[[75,58,95,58],[85,58,85,124],[105,58,125,58],[115,58,115,124]],c:[[100,39,7]],
+  l:[[100,49,100,84],[100,53,90,59],[100,53,110,59],[100,84,94,100,103,112]]},
+ j2:{m:'Espalda media',q:['Pecho fuera, tira hacia el ombligo','No te meces con la lumbar'],
+  ol:[[42,88,42,124],[44,94,86,84]],c:[[112,57,7]],
+  l:[[116,92,107,64],[116,92,90,98,76,108],[76,108,74,124],[108,70,86,84]]},
+ v2:{m:'Hombro lateral',q:['Codos ligeramente flexionados','Sube hasta la horizontal y baja lento'],
+  c:[[100,35,7]],l:[[100,45,100,90],[100,90,90,124],[100,90,110,124],[100,52,68,50],[100,52,132,50]],
+  oc:[[63,50,6],[137,50,6]]},
+ v4:{m:'Bíceps',q:['Deja el brazo colgar del todo abajo','El respaldo da el estiramiento: no lo pierdas'],
+  ol:[[132,54,102,100],[70,100,102,100],[86,100,86,124]],c:[[127,55,7]],
+  l:[[122,66,100,98],[100,98,74,98,74,124],[120,68,124,90,124,106]],oc:[[124,110,6]]},
+ l4:{m:'Tríceps',q:['Codos fijos pegados al cuerpo','Extiende del todo abajo'],
+  ol:[[150,20,150,124],[148,30,113,86]],c:[[90,39,7]],
+  l:[[90,49,90,92],[90,92,82,124],[90,92,98,124],[90,55,100,72,112,88]]},
+ m1:{m:'Pierna completa',q:['Baja a 90° sin despegar la lumbar del asiento','Empuja con todo el pie, no con la punta'],
+  ol:[[50,116,84,82],[118,50,146,84]],c:[[90,74,7]],
+  l:[[58,110,84,84],[58,110,94,90,128,62]]},
+ m3:{m:'Glúteo',q:['Barbilla al pecho, mirada al frente','Aprieta el glúteo 1 s arriba'],
+  ol:[[44,86,76,86],[50,86,50,124],[70,86,70,124]],c:[[48,68,7]],
+  l:[[58,86,104,82],[104,82,126,96,126,124]],oc:[[104,73,9]]},
+ v5f:{m:'Femoral',q:['Cadera pegada al banco','Sube rápido, baja en 2-3 s'],
+  ol:[[50,100,150,100],[60,100,60,124],[140,100,140,124]],c:[[55,90,7]],
+  l:[[64,95,116,96],[116,96,134,97],[134,97,128,72]],oc:[[127,67,6]]},
+ pB4:{m:'Pierna · glúteo',q:['El peso en la pierna delantera','Torso ligeramente inclinado adelante'],
+  ol:[[126,96,158,96],[132,96,132,124],[152,96,152,124]],c:[[78,41,7]],
+  l:[[78,51,84,88],[84,88,104,95,106,124],[84,88,110,102,132,95],[78,56,72,90],[78,56,88,90]],
+  oc:[[72,94,5],[88,94,5]]},
+ pB5:{m:'Sóleo',q:['Recorrido completo: talón abajo del todo','Pausa arriba, sin rebotes'],
+  ol:[[98,86,128,86],[106,118,130,118]],c:[[84,48,7]],
+  l:[[84,58,84,94],[84,94,114,92],[114,92,114,112],[114,112,120,118]]},
+ m4:{m:'Core',q:['Lumbar neutra: no dejes caer la cadera','Llega hasta donde controles la vuelta'],
+  c:[[145,79,7]],l:[[56,120,78,120],[78,118,88,96],[88,96,136,84],[128,87,146,100]],oc:[[150,107,10]]},
+};
+
+const ANIM={
+ tA1:{l:[[61,88,118,91],[118,91,132,108,134,124],[78,89,78,72]],oc:[[78,62,8]]},
+ tA2:{l:[[80,84,121,66],[80,84,78,102,82,124],[80,84,90,104,92,124],[112,70,110,80]],oc:[[110,85,9]]},
+ v1:{l:[[100,47,100,88],[100,88,92,124],[100,88,108,124],[100,52,86,56],[100,52,114,56]],
+  ol:[[70,54,130,54]],oc:[[70,54,5],[130,54,5]]},
+ j1d:{c:[[100,58,7]],l:[[85,26,90,64],[115,26,110,64],[100,64,100,102],[100,102,97,112,103,121]]},
+ tA5:{ol:[[158,20,158,124],[156,40,96,48]],
+  l:[[84,52,84,92],[84,92,76,124],[84,92,92,124],[84,56,94,48],[84,60,94,50]]},
+ j4:{l:[[100,47,100,90],[100,90,92,124],[100,90,108,124],[100,55,106,80,114,98]],oc:[[117,101,8]]},
+ s1:{c:[[86,31,7]],oc:[[96,44,8]],
+  l:[[92,42,93,88],[93,88,89,106,89,124],[93,88,97,106,97,124],[92,46,95,44]]},
+ m2:{c:[[87,38,7]],l:[[84,84,86,48],[84,84,82,104,84,124],[84,84,88,104,90,124],[86,54,88,88]],oc:[[88,92,9]]},
+ m5:{c:[[95,33,7]],l:[[95,43,95,80],[95,80,116,88,118,124],[95,80,76,98,62,114],[95,48,86,84],[95,48,104,84]],
+  oc:[[85,88,5],[105,88,5]]},
+ pA4:{c:[[100,36,7]],l:[[100,46,100,90],[100,90,95,112,97,122],[100,90,105,112,107,122]]},
+ pA5:{c:[[54,97,7]],l:[[62,101,128,106],[64,103,56,122],[128,106,150,119]],oc:[[96,95,8]]},
+ pA6:{l:[[100,43,100,88],[100,88,114,104,120,124],[100,88,86,104,84,124],[100,50,118,90],[100,50,82,90]],
+  oc:[[118,95,6],[82,95,6]]},
+ l1:{l:[[115,66,80,95],[80,95,92,108,94,124],[110,70,114,56]],oc:[[115,50,7]]},
+ j1:{ol:[[100,14,100,60],[72,60,128,60]],c:[[92,46,7]],
+  l:[[98,56,100,92],[100,92,124,94,124,124],[98,58,84,60],[98,58,112,60]]},
+ tB3:{c:[[100,49,7]],l:[[100,59,100,92],[100,63,90,59],[100,63,110,59],[100,92,94,106,103,118]]},
+ j2:{ol:[[42,88,42,124],[44,94,102,80]],c:[[110,55,7]],
+  l:[[116,92,105,62],[116,92,90,98,76,108],[76,108,74,124],[106,68,102,80]]},
+ v2:{l:[[100,45,100,90],[100,90,90,124],[100,90,110,124],[100,52,84,82],[100,52,116,82]],
+  oc:[[82,86,6],[118,86,6]]},
+ v4:{l:[[122,66,100,98],[100,98,74,98,74,124],[120,68,124,90,110,80]],oc:[[107,77,6]]},
+ l4:{ol:[[150,20,150,124],[148,30,111,62]],
+  l:[[90,49,90,92],[90,92,82,124],[90,92,98,124],[90,55,100,72,110,64]]},
+ m1:{ol:[[50,116,84,82],[100,64,128,98]],l:[[58,110,84,84],[58,110,84,88,112,79]]},
+ m3:{l:[[58,86,100,100],[100,100,126,97,126,124]],oc:[[100,91,9]]},
+ v5f:{l:[[64,95,116,96],[116,96,134,97],[134,97,150,99]],oc:[[153,100,6]]},
+ pB4:{c:[[78,50,7]],
+  l:[[78,60,84,94],[84,94,104,99,106,124],[84,94,110,105,132,95],[78,64,72,94],[78,64,88,94]],
+  oc:[[72,98,5],[88,98,5]]},
+ pB5:{l:[[84,58,84,94],[84,94,114,86],[114,86,114,104],[114,104,120,116]]},
+ m4:{c:[[117,66,7]],l:[[56,120,78,120],[78,118,88,96],[88,96,110,72],[104,76,118,106]],oc:[[120,114,10]]},
+};
+let animId=null;
+function buildPose(container,pA,pB){
+  const NS='http://www.w3.org/2000/svg';
+  const svg=document.createElementNS(NS,'svg');
+  svg.setAttribute('viewBox','0 0 200 140');svg.setAttribute('aria-hidden','true');
+  const fl=document.createElementNS(NS,'line');
+  fl.setAttribute('class','fl');fl.setAttribute('x1',12);fl.setAttribute('y1',124);
+  fl.setAttribute('x2',188);fl.setAttribute('y2',124);svg.appendChild(fl);
+  const shapes=[];
+  function add(listA,listB,cls,typ){
+    (listA||[]).forEach((a,i)=>{
+      const b=(listB&&listB[i])?listB[i]:a;
+      let el;
+      if(typ==='pl'){el=document.createElementNS(NS,'polyline');el.setAttribute('points',svgPts(a));}
+      else{el=document.createElementNS(NS,'circle');
+        el.setAttribute('cx',a[0]);el.setAttribute('cy',a[1]);el.setAttribute('r',a[2]);}
+      el.setAttribute('class',cls);svg.appendChild(el);
+      shapes.push({el,a,b,typ});
+    });
+  }
+  add(pA.l,pB.l,'cyb','pl');
+  add(pA.ol,pB.ol,'or','pl');add(pA.oc,pB.oc,'orc','c');
+  add(pA.l,pB.l,'cy','pl');add(pA.c,pB.c,'cyc','c');
+  container.innerHTML='';container.appendChild(svg);
+  return shapes;
+}
+function animatePose(shapes){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const t0=performance.now();
+  function frame(now){
+    const t=(1-Math.cos((now-t0)/600))/2;
+    shapes.forEach(s=>{
+      if(s.typ==='pl'){
+        const p=[];for(let i=0;i<s.a.length;i++)p.push(s.a[i]+(s.b[i]-s.a[i])*t);
+        s.el.setAttribute('points',svgPts(p));
+      }else{
+        s.el.setAttribute('cx',s.a[0]+(s.b[0]-s.a[0])*t);
+        s.el.setAttribute('cy',s.a[1]+(s.b[1]-s.a[1])*t);
+      }
+    });
+    animId=requestAnimationFrame(frame);
+  }
+  animId=requestAnimationFrame(frame);
+}
+function svgPts(a){const r=[];for(let i=0;i<a.length;i+=2)r.push(a[i]+','+a[i+1]);return r.join(' ');}
+function poseSvg(p){
+  let s='<svg viewBox="0 0 200 140" role="img" aria-hidden="true">';
+  s+='<line class="fl" x1="12" y1="124" x2="188" y2="124"/>';
+  (p.ol||[]).forEach(a=>{s+='<polyline class="or" points="'+svgPts(a)+'"/>';});
+  (p.oc||[]).forEach(a=>{s+='<circle class="or" cx="'+a[0]+'" cy="'+a[1]+'" r="'+a[2]+'"/>';});
+  (p.l||[]).forEach(a=>{s+='<polyline class="cy" points="'+svgPts(a)+'"/>';});
+  (p.c||[]).forEach(a=>{s+='<circle class="cy" cx="'+a[0]+'" cy="'+a[1]+'" r="'+a[2]+'"/>';});
+  return s+'</svg>';
+}
+function openModal(e){
+  const p=POSES[e.id];if(!p)return;
+  if(animId)cancelAnimationFrame(animId);
+  document.getElementById('mTitle').textContent=e.n;
+  document.getElementById('mMus').textContent=p.m;
+  const shapes=buildPose(document.getElementById('mSvg'),p,ANIM[e.id]||{});
+  const ul=document.getElementById('mCues');ul.innerHTML='';
+  p.q.forEach(q=>{const li=document.createElement('li');li.textContent=q;ul.appendChild(li);});
+  document.getElementById('exModal').hidden=false;
+  animatePose(shapes);
+}
+function closeModal(){
+  document.getElementById('exModal').hidden=true;
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('mClose').addEventListener('click',closeModal);
+  document.getElementById('exModal').addEventListener('click',ev=>{if(ev.target.id==='exModal')closeModal();});
+});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape')closeModal();});
 function toast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');
   clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2600);
@@ -413,7 +636,7 @@ document.getElementById('importBtn').addEventListener('click',()=>{
 });
 document.getElementById('phaseBtn').addEventListener('click',()=>{
   state.hidePhase=!state.hidePhase;save();renderRoutine();
-  toast(state.hidePhase?'Aviso de readaptación ocultado. ¡De vuelta a tus números!':'Aviso de readaptación visible de nuevo.');
+  toast(state.hidePhase?'Aviso ocultado. Programa a pleno rendimiento.':'Aviso de programa nuevo visible de nuevo.');
 });
 (function(){
   const s=new Date().toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
